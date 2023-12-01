@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { DialogHeader, DialogFooter } from "@/components/ui/dialog";
 import {
   Dialog,
@@ -20,7 +20,22 @@ export default function TaskCard(data: any) {
       </p>
       {/*TODO : PASS THE ID THE EDITFORM*/}
       <div className="flex justify-between space-x-4">
-        <FormSave data={data.data} />
+      <Dialog>
+        <DialogTrigger  asChild>
+        <Button variant="outline" size="icon">
+            <Pencil className="h-4 w-4" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Update your task</DialogTitle>
+            <DialogDescription>
+              Update your task by editing this form
+            </DialogDescription>
+          </DialogHeader>
+          <FormSave />
+        </DialogContent>
+      </Dialog>
         {/* TODO : refactor this code  */}
         <Dialog>
           <DialogTrigger asChild>

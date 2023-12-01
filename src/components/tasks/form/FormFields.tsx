@@ -11,7 +11,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DropdownMenuRadioItem } from "@radix-ui/react-dropdown-menu";
-import { formSchema, initialValues } from "./schema"
+import { formSchema, initialValues } from "./schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -25,10 +25,15 @@ import {
 } from "@/components/ui/form";
 import { FormField as FormInputs } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Status } from "@/shared/AppConst";
+import { Status, statuses } from "@/shared/AppConst";
 import React from "react";
 
-export default function FormField({ onSubmit, position, setPosition }: any) {
+export default function FormField({
+  onSubmit,
+  position,
+  setPosition,
+  values,
+}: any) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialValues,
@@ -77,22 +82,30 @@ export default function FormField({ onSubmit, position, setPosition }: any) {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline">{position}</Button>
+                <Button variant="outline">
+                  {statuses.find((item) => item.value === position)?.label}
+                </Button>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Panel Status</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {Object.entries(Status).map(([key, value]) => {
+                {statuses.map((item) => {
                   return (
                     <DropdownMenuRadioGroup
                       value={position}
                       onValueChange={() => {
-                        setPosition(key);
+                        setPosition(item.value);
                       }}
                     >
-                      <DropdownMenuRadioItem key={key} value={value}>
-                        {value}
+                      <DropdownMenuRadioItem
+                        key={item.value}
+                        value={item.value}
+                      >
+                        <div className="flex items-center">
+                          <item.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                           {item.label}
+                        </div> 
                       </DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                   );

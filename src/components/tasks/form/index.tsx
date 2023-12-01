@@ -33,7 +33,7 @@ import { FormControl, FormDescription,  FormItem, FormLabel, FormMessage } from 
 
 import { count } from "console";
 import FormField from "./FormFields";
-export default function FormSave({data,setOpen,open}:any) {
+export default function FormSave({data}:any) {
   const [position, setPosition] = useState("NOT_ASSIGNED");
 
 const handleSubmit =(values: z.infer<typeof formSchema>) =>{
@@ -44,22 +44,6 @@ return data
 }
 
   return (
-    
-    <Dialog open={open} >
-        <DialogTrigger  asChild>
-          <Button variant="outline" size="icon">
-            <Pencil className="h-4 w-4" />
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-            <DialogDescription>
-              Modify your task by editing this form
-            </DialogDescription>
-          </DialogHeader>
-          <FormField onSubmit={handleSubmit} position={position} setPosition={setPosition} />
-        </DialogContent>
-      </Dialog>
+          <FormField values={[]} onSubmit={handleSubmit} position={position} setPosition={setPosition} />
   );
 }

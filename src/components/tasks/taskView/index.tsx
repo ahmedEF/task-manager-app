@@ -13,6 +13,8 @@ import TaskCard from "./taskCard";
 import { ListTitles } from "@/shared/AppConst";
 import FormSave from "../form";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import FormField from "../form/FormFields";
 
 
 export default function TaskView() {
@@ -55,10 +57,24 @@ export default function TaskView() {
       <div className="flex items-center justify-between space-y-2">
         <Header Description={ListTitles.Description} Title={ListTitles.Title}/>
         <div className="flex items-center space-x-2">
-        <Button onClick={()=>{setOpen(true)}} className="border border-black border-solid font-family-inherit px-3 py-2 text-white bg-black hover:bg-white hover:text-black transition duration-300 ease-in-out --tw-border-opacity-1">
+        <Dialog>
+        <DialogTrigger  asChild>
+          <Button  className="border border-black border-solid font-family-inherit px-3 py-2 text-white bg-black hover:bg-white hover:text-black transition duration-300 ease-in-out --tw-border-opacity-1">
           Add New Task
         </Button>
-        <FormSave open={open} setOpen={setOpen}/>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New Task </DialogTitle>
+            <DialogDescription>
+            Quickly add a new task to your list. Let's get started !
+            </DialogDescription>
+          </DialogHeader>
+          <FormSave />
+        </DialogContent>
+      </Dialog>
+        
+        {/* <FormSave open={open} setOpen={setOpen} /> */}
       </div>
       </div>
       <div className="flex space-x-4">
