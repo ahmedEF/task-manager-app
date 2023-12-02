@@ -5,8 +5,10 @@ import * as z from "zod"
 export const  initialValues= {
     title: "",
     description: "",
+    status:""
 }
 export const formSchema = z.object({
-    title: z.string().min(3).max(50),
-    description: z.string().min(8).max(100),
+    title: z.string().min(3).max(15),
+    description: z.string().min(8).max(200),
+    status:z.string(),
 })

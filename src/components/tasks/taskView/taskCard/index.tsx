@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Terminal, Trash2 } from "lucide-react";
 import { DialogHeader, DialogFooter } from "@/components/ui/dialog";
 import {
   Dialog,
@@ -10,15 +10,35 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import FormSave from "../../form";
+import { api } from "@/utils/api";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import toast from "react-hot-toast";
 
-export default function TaskCard(data: any) {
+//TODO:USE TYPE OR INTERFACES
+export default function TaskCard({ data }: { data: any }) {
+  const deleteTaskMutation = api.deleteTask.delete.useMutation();
+  
+  const { id, title, description } = data;
+  const utils = api.useUtils();
+  const handleDeleteTask = () => {
+    deleteTaskMutation.mutate({ id: id }, {
+      onSuccess () {
+      utils.listings.getTasksByUserId.invalidate();
+      toast.success('Your task have been deleted !');
+      },
+      onError (error){
+        toast.error('Error try again later');
+      }
+    });
+  };
   return (
-    <div className="bg-white p-3 rounded-lg shadow-sm mb-4 ">
-      <h3 className="text-sm font-semibold mb-1">{data.data.title}</h3>
+    <div className="bg-white shadow-xl p-3 rounded-lg  mb-4 ">
+      <h3 className="text-sm font-semibold mb-1">{title}</h3>
       <p className="text-sm text-gray-600 dark:text-gray-400">
-        {data.data.description}
+        {description}
       </p>
-      {/*TODO : PASS THE ID THE EDITFORM*/}
+      
+      {/*TODO : PASS THE ID TO THE EDITFORM*/}
       <div className="flex justify-between space-x-4">
       <Dialog>
         <DialogTrigger  asChild>
@@ -36,7 +56,7 @@ export default function TaskCard(data: any) {
           <FormSave />
         </DialogContent>
       </Dialog>
-        {/* TODO : refactor this code  */}
+        {/* DELETE CONFIRMATION POP-UP */}
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline" size="icon">
@@ -52,7 +72,7 @@ export default function TaskCard(data: any) {
             </DialogHeader>
             <DialogFooter className="sm:justify-end">
               <DialogClose asChild>
-                <Button type="button" variant="default">
+                <Button type="button" variant="default" onClick={handleDeleteTask}>
                   Confirme
                 </Button>
               </DialogClose>

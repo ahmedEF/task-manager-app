@@ -20,6 +20,7 @@ import {
   FormControl,
   FormDescription,
   FormItem,
+  FormField as FormSelect,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
@@ -27,12 +28,12 @@ import { FormField as FormInputs } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Status, statuses } from "@/shared/AppConst";
 import React from "react";
+import { Select, SelectContent, SelectGroup, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function FormField({
   onSubmit,
   position,
   setPosition,
-  values,
 }: any) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,7 +53,6 @@ export default function FormField({
                   <FormControl>
                     <Input placeholder="Title" {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -78,9 +78,12 @@ export default function FormField({
             />
           </div>
           <div className="grid w-full items-center gap-4 ">
-            <Label htmlFor="username">Status</Label>
-
-            <DropdownMenu>
+          <Label htmlFor="username">Status</Label>
+          <FormSelect
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <DropdownMenu >
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
                   {statuses.find((item) => item.value === position)?.label}
@@ -111,11 +114,14 @@ export default function FormField({
                   );
                 })}
               </DropdownMenuContent>
-            </DropdownMenu>
-            <FormDescription>
+              <FormDescription>
               By default the status is '❌ No Status'.
             </FormDescription>
-          </div>
+            </DropdownMenu> 
+            
+              )}
+            />
+            </div>
           <DialogFooter>
             <Button type="submit">Save changes</Button>
           </DialogFooter>

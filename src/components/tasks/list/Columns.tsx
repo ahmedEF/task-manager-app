@@ -10,6 +10,7 @@ export const columns: ColumnDef<any>[] = [
      
       {
         accessorKey: "title",
+        enableSorting:true,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Title" />
         ),

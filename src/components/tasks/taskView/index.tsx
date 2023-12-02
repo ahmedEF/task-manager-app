@@ -10,123 +10,110 @@ import {
 import { Button } from "@/components/ui/button";
 import Header from "../../header";
 import TaskCard from "./taskCard";
-import { ListTitles } from "@/shared/AppConst";
+import { ListTitles, statuses } from "@/shared/AppConst";
 import FormSave from "../form";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import FormField from "../form/FormFields";
-
-
+import { api } from "@/utils/api";
+import { formSchema } from "../form/schema";
+import { z } from "zod";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import toast, { Toaster } from "react-hot-toast";
 export default function TaskView() {
-  const [open,setOpen]=useState(false);
-  const mockTaskCard = [
-    {
-      id: 1,
-      title: "Complete Project Report",
-      description:
-        "Finish the quarterly project report and submit it by Friday.",
-      status: "NOT_ASSIGNED",
-    },
-    {
-      id: 2,
-      title: "Add fetch Api",
-      description:
-        "Finish the quarterly project report and submit it by Friday.",
-      status: "TO_DO",
-
-    },
-    {
-      id: 3,
-      title: "Add Trpc",
-      description:
-        "Finish the quarterly project report and submit it by Friday.",
-      status: "IN_PROGRESS",
-    },
-    {
-      id: 4,
-      title: "Add fetch Api",
-      description:
-        "Finish the quarterly project report and submit it by Friday.",
-      status: "COMPLETED",
-
-    },
-  ];
+  const [isOpen, setIsOpen] = useState(false);
+  const {
+    data: Tasks,
+    isFetching,
+    isSuccess,
+  } = api.listings.getTasksByUserId.useQuery();
+  const [status, setStatus] = useState("NOT_ASSIGNED");
+  const createTask = api.addTask.create.useMutation();
+  const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    return createTask
+      .mutateAsync({
+        ...values,
+        status: status,
+      })
+      .then(() => {
+        setIsOpen(false);
+      });
+  };
 
   return (
-    <main className="hidden h-full bg-zinc-50 border rounded-xl flex-1 flex-col space-y-8 p-8 md:flex">
-      <div className="flex items-center justify-between space-y-2">
-        <Header Description={ListTitles.Description} Title={ListTitles.Title}/>
-        <div className="flex items-center space-x-2">
-        <Dialog>
-        <DialogTrigger  asChild>
-          <Button  className="border border-black border-solid font-family-inherit px-3 py-2 text-white bg-black hover:bg-white hover:text-black transition duration-300 ease-in-out --tw-border-opacity-1">
-          Add New Task
-        </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add New Task </DialogTitle>
-            <DialogDescription>
-            Quickly add a new task to your list. Let's get started !
-            </DialogDescription>
-          </DialogHeader>
-          <FormSave />
-        </DialogContent>
-      </Dialog>
-        
-        {/* <FormSave open={open} setOpen={setOpen} /> */}
+    <>
+      <div>
+        <Toaster position="bottom-right" reverseOrder={false} />
       </div>
-      </div>
-      <div className="flex space-x-4">
-        {/* Status: NOT_ASSIGNED */}
-        <div className="w-1/4">
-          <h2 className="mb-4 text-sm font-medium text-black-400 dark:text-gray-100 flex items-center">
-            <QuestionMarkCircledIcon className="mr-2 h-4 w-4" />
-            No Status
-          </h2>
+      <main className="hidden h-full bg-zinc-50 border rounded-xl flex-1 flex-col space-y-8 p-8 md:flex">
+        <div className="flex items-center justify-between space-y-2">
+          <Header
+            Description={ListTitles.Description}
+            Title={ListTitles.Title}
+          />
+          <div className="flex items-center space-x-2">
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  onClick={() => {
+                    setIsOpen(true);
+                  }}
+                  className="border border-black border-solid font-family-inherit px-3 py-2 text-white bg-black hover:bg-white hover:text-black transition duration-300 ease-in-out --tw-border-opacity-1"
+                >
+                  Add New Task
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New Task </DialogTitle>
+                  <DialogDescription>
+                    Quickly add a new task to your list. Let's get started !
+                  </DialogDescription>
+                </DialogHeader>
+                <FormField
+                  onSubmit={handleSubmit}
+                  position={status}
+                  setPosition={setStatus}
+                />
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
 
-          {mockTaskCard
-            .filter((item) => item.status === "NOT_ASSIGNED")
-            .map((item) => (
-              <TaskCard key={item.id} data={item} />
-            ))}
-        </div>
+        {/* fetch Task data for each item card  */}
+        <div className="flex space-x-4">
+          {statuses.map((statusItem) => (
+            <div key={statusItem.label} className="w-1/4">
+              <h2 className="mb-4 text-sm font-medium text-black-400 dark:text-gray-300 flex items-center">
+                {statusItem.value === "TO_DO" ? (
+                  <DiscIcon className="mr-2 h-4 w-4" />
+                ) : (
+                  <statusItem.icon className="mr-2 h-4 w-4" />
+                )}
+                {statusItem.label}
+              </h2>
 
-        {/* Status: TO_DO */}
-        <div className="w-1/4">
-          <h2 className="mb-4 text-sm font-medium text-black-400 dark:text-gray-300 flex items-center">
-            <DiscIcon className="mr-2 h-4 w-4" />
-            To Do
-          </h2>
-          {mockTaskCard
-            .filter((item) => item.status === "TO_DO")
-            .map((item) => (
-              <TaskCard key={item.id} data={item} />
-            ))}
+              <ScrollArea className="h-[29rem] rounded-md border border-gray-200">
+                <ScrollBar orientation="vertical" />
+                <div className="p-1">
+                  {Tasks?.filter(
+                    (item) => item.status === statusItem.value
+                  ).map((item) => (
+                    <TaskCard key={item.id} data={item} />
+                  ))}
+                </div>
+              </ScrollArea>
+            </div>
+          ))}
         </div>
-        <div className="w-1/4">
-          <h2 className="mb-4 text-sm font-medium text-black-400 dark:text-gray-300 flex items-center">
-            <StopwatchIcon className="mr-2 h-4 w-4" />
-            In Progress
-          </h2>
-          {mockTaskCard
-            .filter((item) => item.status === "IN_PROGRESS")
-            .map((item) => (
-              <TaskCard key={item.id} data={item} />
-            ))}
-        </div>
-        <div className="w-1/4">
-          <h2 className="mb-4 text-sm font-medium text-black-400 dark:text-gray-300 flex items-center">
-            <CheckCircledIcon className="mr-2 h-4 w-4" />
-            Done
-          </h2>
-          {mockTaskCard
-            .filter((item) => item.status === "COMPLETED")
-            .map((item) => (
-              <TaskCard key={item.id} data={item} />
-            ))}
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

@@ -1,12 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faHourglassStart } from "@fortawesome/free-solid-svg-icons";
-// import { ITaskData } from "@/app/models";
-import {
-  QuestionMarkCircledIcon,
-  StopwatchIcon,
-  CheckCircledIcon,
-  DiscIcon,
-} from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import Header from "../header";
 import Logo from "../../../public/assets/icons/icontask.svg"

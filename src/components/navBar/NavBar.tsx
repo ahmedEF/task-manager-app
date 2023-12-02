@@ -34,12 +34,8 @@ type Props = {
 };
 export default function NavBar(props: Props) {
   const { isLoaded, isSignedIn, user } = useUser();
-  if (!user) {
-    // redirect("/sign-up");
-  }
-  // // Get the user data
-  //   const userData = clerkClient.users.getUser(user);
-  // mock test object
+  const router = useRouter();
+  const currentPath = router.pathname;
 
   return (
     <>
@@ -63,27 +59,38 @@ export default function NavBar(props: Props) {
             <nav className="space-y-2 ">
               <Link
                 href={"/dashboard"}
-                className="w-full flex items-center space-x-2 hover:bg-gray-200 variant-ghost active:bg-gray-300 py-2 px-2 rounded-lg text-black-500"
+                className={`w-full flex items-center space-x-2 ${
+                  currentPath === "/dashboard"
+                    ? "bg-gray-200"
+                    : "hover:bg-gray-200"
+                } variant-ghost active:bg-gray-300 py-2 px-2 rounded-lg text-black-500`}
               >
                 <Home className="h-4 w-4" />
                 <span className="text-sm font-medium">Home</span>
               </Link>
               <Link
                 href={"/dashboard/tasksList"}
-                className="w-full flex items-center space-x-2 hover:bg-gray-200 variant-ghost active:bg-gray-300 py-2 px-2 rounded-lg text-black-500"
+                className={`w-full flex items-center space-x-2 ${
+                  currentPath === "/dashboard/tasksList"
+                    ? "bg-gray-200"
+                    : "hover:bg-gray-200"
+                } variant-ghost active:bg-gray-300 py-2 px-2 rounded-lg text-black-500`}
               >
                 <IoListOutline className="h-5 w-5" />
-                <span className="text-sm font-medium">Tasks</span>
+                <span className="text-sm font-medium">List</span>
               </Link>
-              <button className="w-full flex items-center space-x-2 active:bg-gray-300 variant-ghost py-2 px-2 rounded-lg text-black-800">
+
+              <Link
+                href={"/dashboard/tasksView"}
+                className={`w-full flex items-center space-x-2 ${
+                  currentPath === "/dashboard/tasksView"
+                    ? "bg-gray-200"
+                    : "hover:bg-gray-200"
+                } variant-ghost active:bg-gray-300 py-2 px-2 rounded-lg text-black-500`}
+              >
                 <IoSettingsOutline />
-                <Link
-                  href={"/dashboard/tasksView"}
-                  className="text-sm font-medium"
-                >
-                  Handle Tasks
-                </Link>
-              </button>
+                <span className="text-sm font-medium">Task View</span>
+              </Link>
               <button className="w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 variant-ghost py-2 px-2 rounded-lg text-black-500">
                 <MdOutlineManageAccounts />
                 <span className="text-sm font-medium">Accounts</span>
@@ -103,8 +110,10 @@ export default function NavBar(props: Props) {
             <>{props.children}</>
           </main>
         </div>
+      ) : !isLoaded ? (
+        <h1>loading...</h1>
       ) : (
-<h1>loading...</h1>
+        <>{props.children}</>
       )}
     </>
   );

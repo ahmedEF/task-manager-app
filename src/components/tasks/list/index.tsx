@@ -9,16 +9,15 @@ import { DataTable } from "./Table"
 import { useUser } from "@clerk/nextjs"
 import Header from "@/components/header"
 import { Button } from "@/components/ui/button"
+import { api } from "@/utils/api"
 
 
 export default  function List() {
-    // // const user = useUser();
-    // const listing = api.listings.getTasks.useQuery(
-    //     // {
-    //     //   enabled: !!router.query.id,
-    //     // }
-    //   );
-    // console.log(listing)
+  const {
+    data: Tasks,
+    isFetching,
+    isSuccess,
+  } = api.listings.getTasksByUserId.useQuery();
   return (
     <div className="hidden h-full bg-zinc-50 border rounded-xl flex-1 flex-col space-y-8 p-8 md:flex">
         <div className="flex items-center justify-between space-y-2">
@@ -27,7 +26,7 @@ export default  function List() {
           Add New Task
         </Button>
         </div>
-        <DataTable data={[]} columns={columns} />
+        <DataTable data={Tasks??[]} columns={columns} />
       </div>
   )
 }
