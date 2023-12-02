@@ -1,17 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faHourglassStart } from "@fortawesome/free-solid-svg-icons";
-// import { ITaskData } from "@/app/models";
-import {
-  QuestionMarkCircledIcon,
-  StopwatchIcon,
-  CheckCircledIcon,
-  DiscIcon,
-} from "@radix-ui/react-icons";
+import { DiscIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import Header from "../../header";
 import TaskCard from "./taskCard";
 import { ListTitles, statuses } from "@/shared/AppConst";
-import FormSave from "../form";
 import { useState } from "react";
 import {
   Dialog,
@@ -27,24 +18,34 @@ import { formSchema } from "../form/schema";
 import { z } from "zod";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import toast, { Toaster } from "react-hot-toast";
+
 export default function TaskView() {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    data: Tasks,
-    isFetching,
-    isSuccess,
-  } = api.listings.getTasksByUserId.useQuery();
+  // fetch tasks data
+  const { data: Tasks, isFetching } = api.listings.getTasksByUserId.useQuery();
+
+  const utils = api.useUtils();
   const [status, setStatus] = useState("NOT_ASSIGNED");
   const createTask = api.addTask.create.useMutation();
+// handle submition form
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    return createTask
-      .mutateAsync({
+    return createTask.mutate(
+      {
         ...values,
         status: status,
-      })
-      .then(() => {
-        setIsOpen(false);
-      });
+      },
+      {
+        onSuccess() {
+          //invalidate cache
+          utils.listings.getTasksByUserId.invalidate();
+          toast.success("Your task have been aded !");
+          setIsOpen(false);
+        },
+        onError(error) {
+          toast.error("Error try again later");
+        },
+      }
+    );
   };
 
   return (
@@ -100,8 +101,9 @@ export default function TaskView() {
                 {statusItem.label}
               </h2>
 
-              <ScrollArea className="h-[29rem] rounded-md border border-gray-200">
+              <ScrollArea className="h-[30rem] rounded-md border border-gray-200">
                 <ScrollBar orientation="vertical" />
+                <ScrollBar orientation="horizontal" />
                 <div className="p-1">
                   {Tasks?.filter(
                     (item) => item.status === statusItem.value

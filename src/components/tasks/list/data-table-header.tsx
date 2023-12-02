@@ -15,10 +15,11 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { ITaskData } from "@/models"
   
   interface DataTableColumnHeaderProps<TData, TValue>
     extends React.HTMLAttributes<HTMLDivElement> {
-    column: Column<TData, TValue>
+    column: Column<ITaskData, TValue>
     title: string
   }
   

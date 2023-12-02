@@ -6,12 +6,6 @@ import {
 } from "@radix-ui/react-icons";
 import { CircleIcon } from "lucide-react";
 
-export enum Status {
-  NOT_ASSIGNED = "❌No Status",
-  TO_DO = "📣To Do",
-  IN_PROGRESS = "🕐In Progress",
-  COMPLETED = "✔️Done",
-}
 export const statuses = [
   {
     value: "NOT_ASSIGNED",
@@ -34,9 +28,6 @@ export const statuses = [
     icon: CheckCircledIcon,
   },
 ];
-export const url = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}/api/trpc`
-  : "http://localhost:3000/api/trpc";
 
 export type Props = {
   Title: string;

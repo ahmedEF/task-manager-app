@@ -26,18 +26,26 @@ import {
 } from "@/components/ui/form";
 import { FormField as FormInputs } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Status, statuses } from "@/shared/AppConst";
+import { statuses } from "@/shared/AppConst";
 import React from "react";
-import { Select, SelectContent, SelectGroup, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function FormField({
   onSubmit,
   position,
   setPosition,
+  obj,
 }: any) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialValues,
+    defaultValues: !obj ? initialValues : obj?.data, //check the exist of data form
   });
   return (
     <Form {...form}>
@@ -78,50 +86,53 @@ export default function FormField({
             />
           </div>
           <div className="grid w-full items-center gap-4 ">
-          <Label htmlFor="username">Status</Label>
-          <FormSelect
+            <Label htmlFor="username">Status</Label>
+            <FormSelect
               control={form.control}
               name="status"
               render={({ field }) => (
-                <DropdownMenu >
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  {statuses.find((item) => item.value === position)?.label}
-                </Button>
-              </DropdownMenuTrigger>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline">
+                      {!obj
+                        ? statuses.find((item) => item.value === position)?.label
+                        : statuses.find(
+                            (item) => item.value === field.value
+                          )?.label}
+                    </Button>
+                  </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Panel Status</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {statuses.map((item) => {
-                  return (
-                    <DropdownMenuRadioGroup
-                      value={position}
-                      onValueChange={() => {
-                        setPosition(item.value);
-                      }}
-                    >
-                      <DropdownMenuRadioItem
-                        key={item.value}
-                        value={item.value}
-                      >
-                        <div className="flex items-center">
-                          <item.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                           {item.label}
-                        </div> 
-                      </DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                  );
-                })}
-              </DropdownMenuContent>
-              <FormDescription>
-              By default the status is '❌ No Status'.
-            </FormDescription>
-            </DropdownMenu> 
-            
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>Panel Status</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {statuses.map((item) => {
+                      return (
+                        <DropdownMenuRadioGroup
+                          value={position}
+                          onValueChange={() => {
+                            setPosition(item.value);
+                          }}
+                        >
+                          <DropdownMenuRadioItem
+                            key={item.value}
+                            value={item.value}
+                          >
+                            <div className="flex items-center">
+                              <item.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                              {item.label}
+                            </div>
+                          </DropdownMenuRadioItem>
+                        </DropdownMenuRadioGroup>
+                      );
+                    })}
+                  </DropdownMenuContent>
+                  <FormDescription>
+                    By default the status is '❌ No Status'.
+                  </FormDescription>
+                </DropdownMenu>
               )}
             />
-            </div>
+          </div>
           <DialogFooter>
             <Button type="submit">Save changes</Button>
           </DialogFooter>

@@ -22,11 +22,12 @@ import {
 } from "@/components/ui/table";
 import React from "react";
 import { DataTablePagination } from "./data-table-pagination";
+import { ITaskData } from "@/models";
 // import { ITaskData } from "@/app/models"
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface DataTableProps<ITaskData, TValue> {
+  columns: ColumnDef<ITaskData, TValue>[];
+  data: ITaskData[];
 }
 
 export function DataTable<TData, TValue>({
@@ -52,6 +53,7 @@ export function DataTable<TData, TValue>({
     },
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
+    onColumnVisibilityChange: setColumnVisibility,
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
