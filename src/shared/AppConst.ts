@@ -33,7 +33,7 @@ export type Props = {
   Title: string;
   Description: string;
 };
-
+// titles
 export const HomeTitles: Props = {
   Title: "Welcome to Task Manager App!",
   Description:
@@ -41,6 +41,10 @@ export const HomeTitles: Props = {
 };
 export const ListTitles: Props = {
   Title: "Welcome back!",
+  Description: "Here's a list of your tasks for this month!",
+};
+export const Soon: Props = {
+  Title: "Coming Soon!, Account Manager",
   Description:
-    "Here's a list of your tasks for this month!",
+    "Introducing the User Account Manager - Seamlessly manage your account settings, preferences, and security features in one centralized hub.",
 };

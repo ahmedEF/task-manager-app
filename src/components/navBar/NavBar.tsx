@@ -79,7 +79,7 @@ export default function NavBar(props: Props) {
                 <IoListOutline className="h-5 w-5" />
                 <span className="text-sm font-medium">List</span>
               </Link>
-
+              
               <Link
                 href={"/dashboard/tasksView"}
                 className={`w-full flex items-center space-x-2 ${
@@ -91,10 +91,17 @@ export default function NavBar(props: Props) {
                 <IoSettingsOutline />
                 <span className="text-sm font-medium">Task View</span>
               </Link>
-              <button className="w-full flex items-center space-x-2 hover:bg-gray-200 active:bg-gray-300 variant-ghost py-2 px-2 rounded-lg text-black-500">
+              <Link
+                href={"/coming-soon"}
+                className={`w-full flex items-center space-x-2 ${
+                  currentPath === "/coming-soon"
+                    ? "bg-gray-200"
+                    : "hover:bg-gray-200"
+                } variant-ghost active:bg-gray-300 py-2 px-2 rounded-lg text-black-500`}
+              >
                 <MdOutlineManageAccounts />
-                <span className="text-sm font-medium">Accounts</span>
-              </button>
+                <span className="text-sm font-medium">Account</span>
+              </Link>
               <SignOutButton>
                 <button className="w-full flex items-center space-x-2 hover:bg-red-100 active:bg-red-300 py-2 px-2 rounded-lg text-red-500">
                   <IoLogOutOutline />
