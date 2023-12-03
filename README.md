@@ -25,10 +25,10 @@
 - [Clerk](https://next-auth.js.org):For user authentication.
 - [Prisma](https://www.prisma.io):Next-generation ORM, it provides a clean and type-safe API for submitting database queries.
 - [Tailwind CSS](https://tailwindcss.com):A utility-first CSS framework for rapid UI development.
-- [Shadcn](https://ui.shadcn.com).
-- [TypeScript](https://www.typescriptlang.org).
-- [Trpc](https://www.trpc.io).
-- [Superbase](https://www.superbase.com).
+- [Shadcn](https://ui.shadcn.com).a collection of re-usable components ui.
+- [TypeScript](https://www.typescriptlang.org).A typed superset of JavaScript that provides enhanced tooling and developer productivity.
+- [Trpc](https://www.trpc.io).tRPC allows you to easily build & consume fully typesafe APIs without schemas or code generation.
+- [Superbase](https://www.superbase.com).Database based PostreSQL
 ## Getting Started
 
 First, run the development server:
