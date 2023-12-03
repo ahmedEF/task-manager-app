@@ -12,7 +12,7 @@
 
 <a id="features"></a>
 
-## Next &colon;Features&colon;
+## Next Features&colon;
 
 - Accounts management
 - Update the list of task to be able to costumize directly
