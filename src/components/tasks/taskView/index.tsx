@@ -38,7 +38,7 @@ export default function TaskView() {
         onSuccess() {
           //invalidate cache
           utils.listings.getTasksByUserId.invalidate();
-          toast.success("Your task have been aded !");
+          toast.success("Your task have been added !");
           setIsOpen(false);
         },
         onError(error) {

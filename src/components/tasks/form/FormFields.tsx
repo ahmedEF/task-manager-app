@@ -27,7 +27,7 @@ import {
 import { FormField as FormInputs } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { PopUpTitles, statuses } from "@/shared/AppConst";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function FormField({
   onSubmit,
@@ -39,6 +39,9 @@ export default function FormField({
     resolver: zodResolver(formSchema),
     defaultValues: !obj ? initialValues : obj?.data, //check the exist of data form
   });
+  //useState to set the value of dropDownMenu when the form is on mode update
+  const [dropDownValueSelected,setDropDownValueSelected]=useState(obj?.data?.status);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -89,7 +92,7 @@ export default function FormField({
                       {!obj
                         ? statuses.find((item) => item.value === position)?.label
                         : statuses.find(
-                            (item) => item.value === field.value
+                            (item) => item.value === dropDownValueSelected
                           )?.label}
                     </Button>
                   </DropdownMenuTrigger>
@@ -104,6 +107,7 @@ export default function FormField({
                           value={position}
                           onValueChange={() => {
                             setPosition(item.value);
+                            setDropDownValueSelected(item.value)
                           }}
                         >
                           <DropdownMenuRadioItem
