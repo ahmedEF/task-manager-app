@@ -1,5 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center" >
+  <br/>
+  <h1>Task Manager App</h1>
+</div>
 
+<div align="center">
+  Welcome to Task Manager App, a community project built with <a href="https://nextjs.org/">Next.js</a>, <a href="https://tailwindcss.com">Tailwind CSS</a>,<a href="https://dashboard.clerk.com/">Clerk</a>, <a href="https://www.typescriptlang.org">TypeScript</a>, <a href="https://trpc.io/">TRPC</a>, <a href="https://ui.shadcn.com/">Shadcn ui</a>, <a href="https://www.prisma.io">Prisma</a>and
+   <a href="https://www.superbase.com">SuperBase</a>
+  Introducing Task Manager App, a simple and intuitive task management app designed for the modern user,with easy and secured authentication (sign-in/up with github ,google and facebook). Seamlessly organize your days or work, track your Tasks, and stay on top of your goals effortlessly. With a clean and modern interface!
+</div>
+
+
+<a id="features"></a>
+
+## Next &colon;Features&colon;
+
+- Accounts management
+- Update the list of task to be able to costumize directly
+
+<a id="technologies-used"></a>
+
+## Technologies Used &colon;hammer_and_wrench&colon;
+
+- [Next.js](https://nextjs.org): A React framework for building server-side rendered and statically generated applications.
+- [Clerk](https://next-auth.js.org):For user authentication.
+- [Prisma](https://www.prisma.io):Next-generation ORM, it provides a clean and type-safe API for submitting database queries.
+- [Tailwind CSS](https://tailwindcss.com):A utility-first CSS framework for rapid UI development.
+- [Shadcn](https://ui.shadcn.com).
+- [TypeScript](https://www.typescriptlang.org).
+- [Trpc](https://www.trpc.io).
+- [Superbase](https://www.superbase.com).
 ## Getting Started
 
 First, run the development server:
