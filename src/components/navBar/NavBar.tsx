@@ -28,7 +28,7 @@ import { ReactNode, useEffect } from "react";
 import { AppProps } from "next/app";
 import { Home } from "lucide-react";
 import { BallBeat } from "react-pure-loaders";
-
+import Image from "next/image";
 type Props = {
   children: React.ReactNode;
 };
@@ -44,9 +44,9 @@ export default function NavBar(props: Props) {
           <aside className="h-screen rounded-r-2xl w-72 bg-gray-50 text-gray-800 p-4">
             <div className="flex items-center mb-4 space-x-1">
               <img
-                alt="Profile"
-                height="30"
                 src={user?.imageUrl}
+                alt={"Profile"}
+                height="30"
                 style={{
                   aspectRatio: "30/30",
                   objectFit: "cover",
@@ -79,7 +79,7 @@ export default function NavBar(props: Props) {
                 <IoListOutline className="h-5 w-5" />
                 <span className="text-sm font-medium">List</span>
               </Link>
-              
+
               <Link
                 href={"/dashboard/tasksView"}
                 className={`w-full flex items-center space-x-2 ${

@@ -31,20 +31,29 @@ export const statuses = [
 
 export type Props = {
   Title: string;
-  Description: string;
+  Description?: string;
+  SubTitle: string;
 };
 // titles
 export const HomeTitles: Props = {
   Title: "Welcome to Task Manager App!",
-  Description:
+  SubTitle:
     "Stay organized and boost your productivity with our intuitive Task Manager App. Effortlessly manage your tasks lists, set smart reminders",
+  Description: "Let's make every day a productive day together!",
 };
 export const ListTitles: Props = {
   Title: "Welcome back!",
-  Description: "Here's a list of your tasks for this month!",
+  SubTitle: "Here's a list of your tasks for this month!",
+  Description: "",
 };
-export const Soon: Props = {
+export const Soon = {
   Title: "Coming Soon!, Account Manager",
   Description:
     "Introducing the User Account Manager - Seamlessly manage your account settings, preferences, and security features in one centralized hub.",
+};
+export const PopUpTitles = {
+  popUpStatusNotice: "By default the status is '❌ No Status'.",
+  popUpSubTitle: "Quickly add a new task to your list. Let's get started !",
+  popUpAddTitle: "Add a new task",
+  popUpEditTitle: "Edit task",
 };

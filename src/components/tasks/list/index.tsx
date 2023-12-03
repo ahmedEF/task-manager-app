@@ -25,7 +25,7 @@ export default function List() {
         <Toaster position="bottom-right" reverseOrder={false} />
       </div>
       <div className="flex items-center justify-between space-y-2">
-        <Header Description={ListTitles.Description} Title={ListTitles.Title} />
+        <Header SubTitle={ListTitles.SubTitle} Title={ListTitles.Title} />
         {/* <Button className="border border-black border-solid font-family-inherit px-3 py-2 text-white bg-black hover:bg-white hover:text-black transition duration-300 ease-in-out --tw-border-opacity-1">
           Add New Task
         </Button> */}

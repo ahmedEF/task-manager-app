@@ -2,7 +2,7 @@ import { DiscIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import Header from "../../header";
 import TaskCard from "./taskCard";
-import { ListTitles, statuses } from "@/shared/AppConst";
+import { ListTitles, PopUpTitles, statuses } from "@/shared/AppConst";
 import { useState } from "react";
 import {
   Dialog,
@@ -56,7 +56,7 @@ export default function TaskView() {
       <main className="hidden h-full bg-zinc-50 border rounded-xl flex-1 flex-col space-y-8 p-8 md:flex">
         <div className="flex items-center justify-between space-y-2">
           <Header
-            Description={ListTitles.Description}
+            SubTitle={ListTitles.SubTitle}
             Title={ListTitles.Title}
           />
           <div className="flex items-center space-x-2">
@@ -75,7 +75,7 @@ export default function TaskView() {
                 <DialogHeader>
                   <DialogTitle>Add New Task </DialogTitle>
                   <DialogDescription>
-                    Quickly add a new task to your list. Let's get started !
+                    {PopUpTitles.popUpSubTitle}
                   </DialogDescription>
                 </DialogHeader>
                 <FormField

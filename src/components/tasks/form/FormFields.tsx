@@ -26,16 +26,8 @@ import {
 } from "@/components/ui/form";
 import { FormField as FormInputs } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { statuses } from "@/shared/AppConst";
+import { PopUpTitles, statuses } from "@/shared/AppConst";
 import React from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 export default function FormField({
   onSubmit,
@@ -105,9 +97,10 @@ export default function FormField({
                   <DropdownMenuContent className="w-56">
                     <DropdownMenuLabel>Panel Status</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {statuses.map((item) => {
+                    {statuses.map((item,key) => {
                       return (
                         <DropdownMenuRadioGroup
+                        key={key}
                           value={position}
                           onValueChange={() => {
                             setPosition(item.value);
@@ -127,7 +120,7 @@ export default function FormField({
                     })}
                   </DropdownMenuContent>
                   <FormDescription>
-                    By default the status is '❌ No Status'.
+                  {PopUpTitles.popUpStatusNotice}
                   </FormDescription>
                 </DropdownMenu>
               )}
