@@ -4,7 +4,7 @@
 </div>
 
 <div align="center">
-  Welcome to Task Manager App, a community project built with <a href="https://nextjs.org/">Next.js</a>, <a href="https://tailwindcss.com">Tailwind CSS</a>,<a href="https://dashboard.clerk.com/">Clerk</a>, <a href="https://www.typescriptlang.org">TypeScript</a>, <a href="https://trpc.io/">TRPC</a>, <a href="https://ui.shadcn.com/">Shadcn ui</a>, <a href="https://www.prisma.io">Prisma</a>and
+  Welcome to Task Manager App, project built with <a href="https://nextjs.org/">Next.js</a>, <a href="https://tailwindcss.com">Tailwind CSS</a>,<a href="https://dashboard.clerk.com/">Clerk</a>, <a href="https://www.typescriptlang.org">TypeScript</a>, <a href="https://trpc.io/">TRPC</a>, <a href="https://ui.shadcn.com/">Shadcn ui</a>, <a href="https://www.prisma.io">Prisma</a>and
    <a href="https://www.superbase.com">SuperBase</a>
   Introducing Task Manager App, a simple and intuitive task management app designed for the modern user,with easy and secured authentication (sign-in/up with github ,google and facebook). Seamlessly organize your days or work, track your Tasks, and stay on top of your goals effortlessly. With a clean and modern interface!
 </div>
