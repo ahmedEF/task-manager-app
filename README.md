@@ -16,6 +16,7 @@
 
 - Accounts management
 - Update the list of task to be able to costumize directly
+- Add responsive design
 
 <a id="technologies-used"></a>
 
