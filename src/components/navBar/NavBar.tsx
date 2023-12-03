@@ -2,15 +2,7 @@ import { FaHome, FaTasks } from "react-icons/fa";
 import { IoListOutline, IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoLogOutOutline } from "react-icons/io5";
-import { MdDone } from "react-icons/md";
-import { TbProgress } from "react-icons/tb";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faHourglass,
-  faHourglassStart,
-  faPen,
-} from "@fortawesome/free-solid-svg-icons";
+
 import {
   SignOutButton,
   UserButton,
@@ -19,8 +11,6 @@ import {
   currentUser,
   useUser,
 } from "@clerk/nextjs";
-import { redirect, usePathname } from "next/navigation";
-import { RiLoader5Line } from "react-icons/ri";
 import router, { useRouter } from "next/router";
 import { ThreeDots } from "react-loader-spinner";
 import Link from "next/link";
@@ -43,6 +33,7 @@ export default function NavBar(props: Props) {
         <div className="flex">
           <aside className="h-screen rounded-r-2xl w-72 bg-gray-50 text-gray-800 p-4">
             <div className="flex items-center mb-4 space-x-1">
+            <picture>
               <img
                 src={user?.imageUrl}
                 alt={"Profile"}
@@ -54,6 +45,7 @@ export default function NavBar(props: Props) {
                 className="rounded-full"
                 width="30"
               />
+              </picture>
               <h1 className="text-md font-medium"> 👋 Hi, {user?.username}</h1>
             </div>
             <nav className="space-y-2 ">
