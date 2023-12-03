@@ -8,7 +8,7 @@ export const  initialValues= {
     status:""
 }
 export const formSchema = z.object({
-    title: z.string().min(3).max(15),
+    title: z.string().min(3).max(30),
     description: z.string().min(8).max(200),
     status:z.string(),
 })

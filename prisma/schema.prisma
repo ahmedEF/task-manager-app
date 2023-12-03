@@ -6,14 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 model Task {
-  id        Int     @id @default(autoincrement())
-  title     String 
-  description   String 
-  status String @default("NOT_ASSIGNED")
-  userId  String?
+  id            Int    @id @default(autoincrement())
+  title         String @db.VarChar(255)
+  description   String @db.VarChar(255)
+  status        String @default("NOT_ASSIGNED")
+  userId        String? @db.VarChar(255)
   createdAt DateTime @default(now())
 }
