@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@clerk/clerk-js": "^4.65.5",
-    "@clerk/nextjs": "^4.27.2",
+    "@clerk/nextjs": "^4.29.3",
     "@clerk/themes": "^1.7.9",
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
